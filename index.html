@@ -566,6 +566,14 @@
         <h1 class="title titulo-font">Player <span class="rojo">Stats</span></h1>
       </div>
       <div class="icons">
+        <button type="button" id="btnLogin" aria-label="Iniciar sesión de administrador"
+          style="border:1px solid #444;border-radius:8px;background:#171717;color:#fff;padding:7px 9px;font-weight:700;font-size:11px;cursor:pointer;">
+          Admin
+        </button>
+        <button type="button" id="btnLogout" aria-label="Cerrar sesión"
+          style="display:none;border:1px solid #444;border-radius:8px;background:#171717;color:#fff;padding:7px 9px;font-weight:700;font-size:11px;cursor:pointer;">
+          Salir
+        </button>
         <button type="button" id="btnEditarTemporada" aria-label="Editar liga" style="background:none; border:none; padding:0; cursor:pointer; color:#FFFFFF; opacity:0.6; line-height:1;">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
         </button>
@@ -633,7 +641,7 @@
     </button>
   </div>
 
-  <p class="footer-note">Los datos se guardan de forma privada en este dispositivo (no se comparten con nadie).</p>
+  <p class="footer-note">Los datos se guardan en una base de datos compartida y pueden verse desde cualquier dispositivo.</p>
 </div>
 
 <script>
@@ -1055,95 +1063,6 @@
   }
 
   iniciar();
-      });
-    }
-
-    lista.querySelectorAll('input[data-tipo]').forEach((input) => {
-      input.addEventListener('input', (ev) => {
-        const id = ev.target.dataset.id;
-        const tipo = ev.target.dataset.tipo;
-        const val = Math.max(0, parseInt(ev.target.value, 10) || 0);
-        const jugador = jugadores.find((j) => j.id === id);
-        if (jugador) {
-          jugador[tipo] = val;
-          guardar();
-          render();
-        }
-      });
-    });
-
-    lista.querySelectorAll('.btn-del').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        jugadores = jugadores.filter((j) => j.id !== btn.dataset.id);
-        guardar();
-        render();
-      });
-    });
-  }
-
-  function agregarJugador() {
-    const nombreInput = document.getElementById('nombreInput');
-    const golesInput = document.getElementById('golesIniciales');
-    const asistInput = document.getElementById('asistIniciales');
-    const errorMsg = document.getElementById('errorMsg');
-
-    const nombre = nombreInput.value.trim();
-    if (!nombre) {
-      errorMsg.textContent = 'Escribe un nombre.';
-      errorMsg.style.display = 'block';
-      return;
-    }
-    errorMsg.style.display = 'none';
-
-    jugadores.push({
-      id: Date.now().toString() + '-' + Math.random().toString(36).slice(2, 8),
-      nombre,
-      goles: Math.max(0, parseInt(golesInput.value, 10) || 0),
-      asistencias: Math.max(0, parseInt(asistInput.value, 10) || 0),
-    });
-
-    nombreInput.value = '';
-    golesInput.value = '0';
-    asistInput.value = '0';
-    guardar();
-    render();
-    nombreInput.focus();
-  }
-
-  document.getElementById('btnAgregar').addEventListener('click', agregarJugador);
-  document.getElementById('formAgregar').addEventListener('submit', (e) => {
-    e.preventDefault();
-    agregarJugador();
-  });
-
-  const btnGuardar = document.getElementById('btnGuardar');
-  const btnGuardarTexto = document.getElementById('btnGuardarTexto');
-  btnGuardar.addEventListener('click', () => {
-    guardar();
-    btnGuardar.classList.add('guardado');
-    btnGuardarTexto.textContent = '¡Guardado!';
-    setTimeout(() => {
-      btnGuardar.classList.remove('guardado');
-      btnGuardarTexto.textContent = 'Guardar';
-    }, 1500);
-  });
-
-  const carousel = document.getElementById('carousel');
-  const dots = document.querySelectorAll('.dot');
-
-  carousel.addEventListener('scroll', () => {
-    const indice = Math.round(carousel.scrollLeft / carousel.clientWidth);
-    dots.forEach((dot, i) => dot.classList.toggle('active', i === indice));
-  });
-
-  dots.forEach((dot) => {
-    dot.addEventListener('click', () => {
-      const indice = parseInt(dot.dataset.index, 10);
-      carousel.scrollTo({ left: indice * carousel.clientWidth, behavior: 'smooth' });
-    });
-  });
-
-  render();
 </script>
 </body>
 </html>
