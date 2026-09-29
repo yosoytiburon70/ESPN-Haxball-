@@ -1,0 +1,19 @@
+{
+  "name": "ESPN Haxball",
+  "short_name": "ESPN Haxball",
+  "description": "ESPN Haxball Player Stats",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0A0A0A",
+  "theme_color": "#0A0A0A",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "./icon-256.png",
+      "sizes": "256x256",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
